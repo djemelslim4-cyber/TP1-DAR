@@ -1,0 +1,58 @@
+Clients et serveurs Java avec sockets
+
+Ce projet illustre trois échanges client/serveur en Java au moyen de sockets TCP. Les programmes se connectent sur la même machine (localhost) et utilisent le port 1234.
+
+Les trois exemples sont indépendants et doivent être exécutés par paire : Client1 avec Server1, Client2 avec Server2, et Client3 avec Server3.
+
+Structure des fichiers
+
+Les fichiers source sont rangés selon leurs packages Java :
+
+
+.
+├── ClientPackage/
+│   ├── Client1.java
+│   ├── Client2.java
+│   └── Client3.java
+└── ServerPackage/
+    ├── Server1.java
+    ├── Server2.java
+    └── Server3.java
+
+
+Chaque fichier doit commencer par la déclaration de package correspondante (package ClientPackage; ou package ServerPackage;).
+
+Prérequis
+
+- Un JDK Java installé (les commandes javac et java doivent être accessibles dans le terminal).
+- Tous les fichiers source du projet présents dans les dossiers ci-dessus.
+- Le port TCP 1234 disponible sur la machine.
+
+
+## Démarrage
+
+Pour chaque paire, ouvrez deux terminaux dans le dossier racine du projet. Démarrez d'abord le serveur dans le premier terminal, puis son client dans le second. Gardez le serveur en cours d'exécution pendant l'échange.
+
+Act 1 : connexion simple
+
+Le client se connecte au serveur puis ferme la connexion. Cet exemple montre l'établissement d'une socket.
+
+Act 2 : échange d'entiers
+
+Le client saisit un entier et l'envoie au serveur. Le serveur traite la valeur et renvoie un entier résultat, que le client affiche. La saisie de 0 sert de signal d'arrêt à la boucle d'échange.
+
+Act 3 : calculatrice
+
+Le client affiche un menu d'opérations de calculatrice. Il transmet au serveur le choix de l'opération ainsi que les nombres nécessaires ; le serveur effectue le calcul et renvoie le résultat. Suivez les invites affichées par le programme pour choisir une opération ou quitter.
+
+Les opérations arithmétiques usuelles du menu comprennent l'addition, la soustraction, la multiplication et la division. La division entre entiers suit les règles de Java : le résultat est tronqué vers zéro (par exemple, 7 / 2 donne 3). Pour signaler une erreur de calcul, notamment une division par zéro si elle est traitée par cette version du serveur, le serveur utilise la valeur Integer.MIN_VALUE (-2147483648) comme sentinelle ; cette valeur est donc réservée et ne doit pas être interprétée comme un résultat normal.
+
+Déroulement général
+
+1. Le serveur ouvre un ServerSocket sur le port 1234 et attend une connexion.
+2. Le client crée une socket vers localhost:1234.
+3. Les deux côtés échangent les données prévues par l'exemple, notamment des entiers pour les clients 2 et 3.
+4. À la fin de l'échange, les flux et la socket sont fermés.
+
+Chaque serveur présenté accepte un seul client pour son exécution. 
+Le serveur doit toujours être lancé avant le client, sinon, le client ne peut pas établir sa connexion.
